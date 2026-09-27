@@ -15,6 +15,11 @@ app.get("/", (req: Request, res: Response) => {
 
 });
 
+app.post("/shortit", (req: Request, res: Response) => {
+    res.status(200).json("Received Post request");
+
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
 
