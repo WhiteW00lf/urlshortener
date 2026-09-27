@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
     <h1> Home Page </h1>
@@ -12,8 +14,13 @@
     <h3> Paste URL to shorten: </h3>
     <br>
 
-    <input type="text" name="userURL" placeholder="Paste your URL"/>
-    <input type="submit" value="Shorten it!" />
-    
+    <form action="/shortit" method="post">
+        <label for=""> URL: </label>
+        <input type="text" name="userURL" placeholder="Paste your URL" />
+        <input type="submit" value="Shorten it!" />
+
+    </form>
+
 </body>
+
 </html>
