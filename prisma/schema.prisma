@@ -12,11 +12,9 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model Url {
-  id Int  @id @default(autoincrement())
-  userUrl String
-  shortCode String @unique
+  id        Int      @id @default(autoincrement())
+  userUrl   String
+  shortCode String   @unique
   createdAt DateTime @default(now())
-
 }
