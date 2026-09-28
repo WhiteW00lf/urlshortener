@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-
 <body>
+  <h1>Home Page</h1>
+  <h3>Paste URL to shorten:</h3>
 
-    <h1> Home Page </h1>
+  <form id="shorten-form">
+    <label for="url-input">URL:</label>
+    <input type="text" id="url-input" placeholder="Paste your URL" />
+    <button type="submit">Shorten it!</button>
+  </form>
 
-    <h3> Paste URL to shorten: </h3>
-    <br>
+  <p id="error" style="color: red"></p>
+  <p>Short link: <a id="result" href="#" target="_blank"></a></p>
 
-    <form action="/shortit" method="post">
-        <label for=""> URL: </label>
-        <input type="text" name="userURL" placeholder="Paste your URL" />
-        <input type="submit" value="Shorten it!" />
+  <script>
+    const form = document.getElementById("shorten-form");
+    const input = document.getElementById("url-input");
+    const result = document.getElementById("result");
+    const errorEl = document.getElementById("error");
 
-    </form>
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
+      errorEl.textContent = "";
+      result.textContent = "";
+      result.removeAttribute("href");
+
+      const userUrl = input.value.trim();
+
+      try {
+        const response = await axios.post("/shortit", { userUrl });
+        result.textContent = response.data.shortUrl;
+        result.href = response.data.shortUrl;
+      } catch (error) {
+        if (error.response) {
+          errorEl.textContent = error.response.data.error || "Something went wrong";
+        } else {
+          errorEl.textContent = "Could not reach the server";
+        }
+      }
+    });
+  </script>
 </body>
-
 </html>
